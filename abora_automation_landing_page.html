@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abora Automation | Dein Studio. Einfach organisiert.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#faf7f5',
+                            100: '#f4ede7',
+                            200: '#e7d8cd',
+                            300: '#d7bcab',
+                            400: '#c49c86',
+                            500: '#b27f67',
+                            600: '#a26b54',
+                            700: '#875442',
+                            800: '#6f4538',
+                            900: '#5c3b31',
+                        },
+                        roseGold: {
+                            100: '#fdf3f0',
+                            200: '#f8ded6',
+                            300: '#f2c1b4',
+                            400: '#e89e8e',
+                            500: '#db7864',
+                        },
+                        charcoal: {
+                            800: '#23201e',
+                            900: '#181615',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(231, 216, 205, 0.5);
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 0%, rgba(244, 237, 231, 0.8) 0%, rgba(255, 255, 255, 1) 70%);
+        }
+        /* Custom range slider styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]:focus {
+            outline: none;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 8px;
+            cursor: pointer;
+            background: #e7d8cd;
+            border-radius: 4px;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            height: 22px;
+            width: 22px;
+            border-radius: 50%;
+            background: #b27f67;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -7px;
+            box-shadow: 0 4px 10px rgba(178, 127, 103, 0.4);
+            transition: transform 0.1s ease;
+        }
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+    </style>
+</head>
+<body class="bg-brand-50/50 text-charcoal-900 font-sans antialiased selection:bg-brand-200 selection:text-brand-900">
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 w-full glass-panel border-b border-brand-200/40 transition-all duration-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-2.5 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-roseGold-400 flex items-center justify-center text-white shadow-md group-hover:shadow-lg transition-all duration-300">
+                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl font-bold tracking-tight text-charcoal-900">Abora<span class="text-brand-600 font-normal">.</span></span>
+                    <span class="text-[10px] uppercase tracking-widest text-brand-600 font-semibold -mt-1">Automation</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-charcoal-800/80">
+                <a href="#funktionen" class="hover:text-brand-600 transition-colors">Funktionen</a>
+                <a href="#rechner" class="hover:text-brand-600 transition-colors">Ersparnis</a>
+                <a href="#ablauf" class="hover:text-brand-600 transition-colors">Ablauf</a>
+                <a href="#preise" class="hover:text-brand-600 transition-colors">Preise</a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-3">
+                <button onclick="openBookingModal()" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-semibold text-brand-800 bg-brand-100/80 hover:bg-brand-200/80 transition-all border border-brand-200">
+                    <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i> Demo testen
+                </button>
+                <a href="#preise" class="inline-flex items-center justify-center px-5 py-2.5 rounded-full text-sm font-semibold text-white bg-brand-600 hover:bg-brand-700 transition-all shadow-md hover:shadow-lg shadow-brand-600/20 active:scale-[0.98]">
+                    Kostenlos testen
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-12 pb-20 md:pt-20 md:pb-28 overflow-hidden hero-gradient">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-6">
+                <!-- Badge -->
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-100 text-brand-800 text-xs font-semibold border border-brand-200 shadow-sm animate-pulse">
+                    <span class="w-2 h-2 rounded-full bg-brand-600"></span>
+                    Speziell für Kosmetik- & Beauty-Studios entwickelt
+                </div>
+
+                <!-- Headline -->
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-charcoal-900 tracking-tight leading-[1.15]">
+                    Dein Studio. <br class="hidden sm:inline"/>
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-brand-700 via-brand-600 to-roseGold-500">Einfach organisiert.</span>
+                </h1>
+
+                <!-- Subheadline -->
+                <p class="text-lg sm:text-xl text-charcoal-800/80 leading-relaxed font-normal max-w-2xl mx-auto">
+                    Die digitale Verwaltungs- und Buchungsplattform für moderne Kosmetikstudios. Termine, Kundenkommunikation und Erinnerungen an einem Ort – vollautomatisiert.
+                </p>
+
+                <!-- CTAs -->
+                <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#preise" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-base font-semibold text-white bg-brand-600 hover:bg-brand-700 transition-all shadow-lg shadow-brand-600/30 hover:-translate-y-0.5">
+                        <span>Jetzt 14 Tage kostenlos testen</span>
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </a>
+                    <button onclick="openBookingModal()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full text-base font-semibold text-charcoal-800 bg-white hover:bg-brand-50 border border-brand-200 transition-all shadow-sm hover:shadow-md">
+                        <i data-lucide="smartphone" class="w-5 h-5 text-brand-600"></i>
+                        <span>Live-Demo ansehen</span>
+                    </button>
+                </div>
+
+                <!-- Trust Metrics -->
+                <div class="pt-6 flex items-center justify-center gap-6 text-xs text-charcoal-800/70 font-medium">
+                    <span class="flex items-center gap-1.5"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i> Keine Kreditkarte erforderlich</span>
+                    <span class="flex items-center gap-1.5"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i> DSGVO-konform</span>
+                    <span class="hidden sm:flex items-center gap-1.5"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i> In 5 Min. eingerichtet</span>
+                </div>
+            </div>
+
+            <!-- Hero Mockup / Dashboard Preview -->
+            <div class="mt-14 relative max-w-5xl mx-auto">
+                <!-- Background decorative elements -->
+                <div class="absolute -top-6 -left-6 w-72 h-72 bg-roseGold-200 rounded-full blur-3xl opacity-50 -z-10"></div>
+                <div class="absolute -bottom-6 -right-6 w-72 h-72 bg-brand-200 rounded-full blur-3xl opacity-50 -z-10"></div>
+
+                <!-- Main Glass Container -->
+                <div class="bg-white/90 rounded-2xl sm:rounded-3xl shadow-2xl border border-brand-200/80 overflow-hidden backdrop-blur-md">
+                    <!-- Dashboard TopBar -->
+                    <div class="bg-brand-50/80 px-4 sm:px-6 py-3 border-b border-brand-200/60 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-rose-400"></span>
+                            <span class="w-3 h-3 rounded-full bg-amber-400"></span>
+                            <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+                            <span class="ml-2 text-xs font-semibold text-charcoal-800/60 hidden sm:inline">Abora Studio Suite — Dashboard</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-xs text-charcoal-800/70">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white rounded-md border border-brand-200 shadow-xs font-medium">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                Live Sync
+                            </span>
+                            <span class="font-semibold text-charcoal-900">Kosmetikstudio Glow & Shine</span>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard Body Grid -->
+                    <div class="p-4 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-3 gap-6 bg-slate-50/30">
+                        
+                        <!-- Left Column: Key Stats & Upcoming -->
+                        <div class="space-y-4">
+                            <!-- Metric Card 1 -->
+                            <div class="bg-white p-4 sm:p-5 rounded-2xl border border-brand-200/60 shadow-xs">
+                                <div class="flex items-center justify-between text-xs text-charcoal-800/60 font-medium">
+                                    <span>Umsatz diesen Monat</span>
+                                    <span class="text-emerald-600 bg-emerald-50 font-bold px-2 py-0.5 rounded-full">+18.4%</span>
+                                </div>
+                                <div class="mt-2 text-2xl font-bold text-charcoal-900">4.850 €</div>
+                                <div class="mt-1 text-xs text-brand-600 font-medium flex items-center gap-1">
+                                    <i data-lucide="trending-up" class="w-3.5 h-3.5"></i> 34 Buchungen über Online-Link
+                                </div>
+                            </div>
+
+                            <!-- WhatsApp Automation Status Box -->
+                            <div class="bg-gradient-to-br from-emerald-500/10 to-teal-500/5 p-4 sm:p-5 rounded-2xl border border-emerald-500/20">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-sm">
+                                        <i data-lucide="message-square" class="w-5 h-5"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-bold text-charcoal-900">WhatsApp-Erinnerung</div>
+                                        <div class="text-xs text-emerald-800 font-medium">Vollautomatisch aktiv</div>
+                                    </div>
+                                </div>
+                                <div class="mt-3 bg-white/80 backdrop-blur p-3 rounded-xl border border-emerald-500/20 text-xs text-charcoal-800 space-y-1">
+                                    <div class="flex justify-between font-semibold">
+                                        <span>An: Sarah M.</span>
+                                        <span class="text-emerald-600">Gesendet 10:15 Uhr</span>
+                                    </div>
+                                    <p class="text-charcoal-800/70 italic">"Hallo Sarah! Wir freuen uns auf dein Aquapeeling morgen um 14:00 Uhr..."</p>
+                                </div>
+                            </div>
+
+                            <!-- No-Show Prevention Pill -->
+                            <div class="bg-white p-4 rounded-2xl border border-brand-200/60 shadow-xs flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-lg bg-roseGold-100 text-brand-600 flex items-center justify-center">
+                                        <i data-lucide="shield-check" class="w-4 h-4"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs font-bold text-charcoal-900">Ausfallquote</div>
+                                        <div class="text-xs text-charcoal-800/60">Letzte 30 Tage</div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-bold text-emerald-600">1.2% <span class="text-[10px] text-charcoal-800/40 font-normal">(-14%)</span></div>
+                                    <div class="text-[10px] text-charcoal-800/60">Vorher ~15%</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right 2 Columns: Interactive Agenda Calendar View -->
+                        <div class="lg:col-span-2 bg-white rounded-2xl border border-brand-200/60 p-4 sm:p-5 shadow-xs flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between pb-3 border-b border-brand-100">
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="calendar" class="w-4 h-4 text-brand-600"></i>
+                                        <h3 class="font-bold text-sm text-charcoal-900">Tagesplan — Heute, 14:30 Uhr</h3>
+                                    </div>
+                                    <span class="text-xs font-semibold px-2.5 py-1 bg-brand-100 text-brand-800 rounded-full">Kabine 1 & 2 belegt</span>
+                                </div>
+
+                                <!-- Schedule Timeline -->
+                                <div class="mt-4 space-y-3">
+                                    <!-- Time slot 1 -->
+                                    <div class="flex gap-3 text-xs">
+                                        <span class="w-12 font-semibold text-charcoal-800/50 pt-2">11:00</span>
+                                        <div class="flex-1 bg-slate-50 p-3 rounded-xl border-l-4 border-slate-300 flex items-center justify-between">
+                                            <div>
+                                                <div class="font-bold text-charcoal-800">Klassische Gesichtsbehandlung</div>
+                                                <div class="text-charcoal-800/60">Laura K. • Kabine 1</div>
+                                            </div>
+                                            <span class="px-2 py-0.5 rounded bg-slate-200 text-charcoal-700 font-medium">Abgeschlossen</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Time slot 2 - Active / Upcoming -->
+                                    <div class="flex gap-3 text-xs">
+                                        <span class="w-12 font-semibold text-brand-600 pt-2">14:00</span>
+                                        <div class="flex-1 bg-brand-50/80 p-3 rounded-xl border-l-4 border-brand-600 flex items-center justify-between shadow-xs">
+                                            <div>
+                                                <div class="font-bold text-charcoal-900 flex items-center gap-2">
+                                                    Aquapeeling Deluxe
+                                                    <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold">Bestätigt (WhatsApp)</span>
+                                                </div>
+                                                <div class="text-charcoal-800/70 mt-0.5">Sarah M. • 90 € • Kabine 1</div>
+                                            </div>
+                                            <i data-lucide="check-circle" class="w-5 h-5 text-emerald-500"></i>
+                                        </div>
+                                    </div>
+
+                                    <!-- Time slot 3 -->
+                                    <div class="flex gap-3 text-xs">
+                                        <span class="w-12 font-semibold text-charcoal-800/50 pt-2">16:00</span>
+                                        <div class="flex-1 bg-slate-50 p-3 rounded-xl border-l-4 border-roseGold-400 flex items-center justify-between">
+                                            <div>
+                                                <div class="font-bold text-charcoal-800">Wimpernlifting & Microneedling</div>
+                                                <div class="text-charcoal-800/60">Elena R. • 120 € • Kabine 2</div>
+                                            </div>
+                                            <span class="px-2 py-0.5 rounded bg-amber-50 text-amber-700 font-medium border border-amber-200/50">Erinnerung gesendet</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Footer action in Mockup -->
+                            <div class="mt-6 pt-3 border-t border-brand-100 flex items-center justify-between text-xs">
+                                <span class="text-charcoal-800/60">Automatisch synchronisiert mit Google & Apple Kalender</span>
+                                <button onclick="openBookingModal()" class="text-brand-600 hover:text-brand-700 font-bold flex items-center gap-1">
+                                    Kundensicht simulieren <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Savings Calculator Widget Section -->
+    <section id="rechner" class="py-20 bg-white border-y border-brand-200/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left text column -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-roseGold-100 text-brand-800 text-xs font-semibold">
+                        <i data-lucide="calculator" class="w-3.5 h-3.5"></i>
+                        ROI & Ersparnis Rechner
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-charcoal-900 tracking-tight leading-tight">
+                        Berechne deine Zeit- & Umsatz-Ersparnis mit Abora.
+                    </h2>
+                    <p class="text-charcoal-800/80 leading-relaxed">
+                        Manuelle Terminvergabe am Telefon, vergessene Termine und Zettelwirtschaft kosten Beauty-Studios im Schnitt 15–20 Stunden und hunderte Euro Umsatz jeden Monat.
+                    </p>
+                    
+                    <ul class="space-y-3 pt-2 text-sm text-charcoal-800">
+                        <li class="flex items-start gap-2.5">
+                            <i data-lucide="check" class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"></i>
+                            <span>Keine verpassten Anrufe mehr während der Behandlungen</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i data-lucide="check" class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"></i>
+                            <span>No-Shows um bis zu 80% reduzieren durch automatische WhatsApps</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Right interactive calculator card -->
+                <div class="lg:col-span-7 bg-brand-50/60 p-6 sm:p-8 rounded-3xl border border-brand-200 shadow-xl relative">
+                    <div class="space-y-6">
+                        
+                        <!-- Slider 1 -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label for="appointmentsSlider" class="text-sm font-bold text-charcoal-900">
+                                    Termine pro Woche:
+                                </label>
+                                <span id="appointmentsVal" class="text-base font-extrabold text-brand-700 bg-white px-3 py-1 rounded-lg border border-brand-200 shadow-xs">
+                                    25 Termine
+                                </span>
+                            </div>
+                            <input type="range" id="appointmentsSlider" min="5" max="100" value="25" step="5">
+                            <div class="flex justify-between text-[11px] text-charcoal-800/50 mt-1">
+                                <span>5 Termine</span>
+                                <span>50 Termine</span>
+                                <span>100 Termine</span>
+                            </div>
+                        </div>
+
+                        <!-- Slider 2 -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label for="noShowSlider" class="text-sm font-bold text-charcoal-900">
+                                    Bisherige Ausfallquote / No-Shows:
+                                </label>
+                                <span id="noShowVal" class="text-base font-extrabold text-brand-700 bg-white px-3 py-1 rounded-lg border border-brand-200 shadow-xs">
+                                    15 %
+                                </span>
+                            </div>
+                            <input type="range" id="noShowSlider" min="0" max="30" value="15" step="1">
+                            <div class="flex justify-between text-[11px] text-charcoal-800/50 mt-1">
+                                <span>0% (perfekt)</span>
+                                <span>15% (Durchschnitt)</span>
+                                <span>30% (hohe Ausfälle)</span>
+                            </div>
+                        </div>
+
+                        <hr class="border-brand-200/80 my-4">
+
+                        <!-- Result display grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <!-- Hours saved -->
+                            <div class="bg-white p-5 rounded-2xl border border-brand-200 shadow-sm text-center sm:text-left">
+                                <div class="text-xs font-semibold text-charcoal-800/60 uppercase tracking-wider mb-1">
+                                    Gesparte Zeit pro Monat
+                                </div>
+                                <div id="savedHours" class="text-3xl font-extrabold text-brand-600">
+                                    ~18 Std.
+                                </div>
+                                <div class="text-[11px] text-charcoal-800/70 mt-1">
+                                    Mehr Zeit für Behandlungen & Freizeit
+                                </div>
+                            </div>
+
+                            <!-- Revenue loss prevented -->
+                            <div class="bg-white p-5 rounded-2xl border border-brand-200 shadow-sm text-center sm:text-left">
+                                <div class="text-xs font-semibold text-charcoal-800/60 uppercase tracking-wider mb-1">
+                                    Geretteter Umsatz
+                                </div>
+                                <div id="savedRevenue" class="text-3xl font-extrabold text-emerald-600">
+                                    ~338 € / Mo.
+                                </div>
+                                <div class="text-[11px] text-charcoal-800/70 mt-1">
+                                    Durch reduzierte Ausfälle (Ø 60€/Behandlung)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-brand-100/60 rounded-xl text-center text-xs text-brand-900 font-medium border border-brand-200/50">
+                            💡 Abora amortisiert sich in der Regel bereits nach dem <strong>ersten geretteten Termin</strong> im Monat.
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Grid Section -->
+    <section id="funktionen" class="py-20 md:py-28 bg-brand-50/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4">
+                <span class="text-xs font-bold uppercase tracking-widest text-brand-600">Alles in einer Plattform</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-charcoal-900 tracking-tight">
+                    Die 6 Kernfunktionen für deinen Studio-Erfolg
+                </h2>
+                <p class="text-charcoal-800/70 text-base sm:text-lg">
+                    Abora übernimmt die zeitfressenden Routineaufgaben, damit du dich voll auf deine Kundinnen konzentrieren kannst.
+                </p>
+            </div>
+
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Feature 1 -->
+                <div class="bg-white p-8 rounded-3xl border border-brand-200/70 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                    <div class="w-12 h-12 rounded-2xl bg-brand-100 text-brand-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i data-lucide="clock" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="mt-6 text-xl font-bold text-charcoal-900">24/7 Online-Terminbuchung</h3>
+                    <p class="mt-3 text-sm text-charcoal-800/70 leading-relaxed">
+                        Deine Kundinnen buchen rund um die Uhr direkt über deine Website oder Instagram-Abo. Auch sonntags und während du behandelst.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-white p-8 rounded-3xl border border-brand-200/70 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                    <div class="w-12 h-12 rounded-2xl bg-brand-100 text-brand-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i data-lucide="calendar-days" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="mt-6 text-xl font-bold text-charcoal-900">Digitaler Studio-Kalender</h3>
+                    <p class="mt-3 text-sm text-charcoal-800/70 leading-relaxed">
+                        Behalte stets den Überblick über Behandlungskabinen, Mitarbeiterzeiten und Geräteauslastungen – übersichtlich & kinderleicht.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-white p-8 rounded-3xl border border-brand-200/70 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group border-l-4 border-l-brand-600">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i data-lucide="message-circle" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="mt-6 text-xl font-bold text-charcoal-900">WhatsApp- & SMS-Erinnerungen</h3>
+                    <p class="mt-3 text-sm text-charcoal-800/70 leading-relaxed">
+                        Automatische Erinnerungen 24h vor dem Termin verringern No-Shows um bis zu 80%. Direkter Draht aufs Smartphone deiner Kundinnen.
+                    </p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="bg-white p-8 rounded-3xl border border-brand-200/70 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                    <div class="w-12 h-12 rounded-2xl bg-brand-100 text-brand-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i data-lucide="user-check" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="mt-6 text-xl font-bold text-charcoal-900">Digitale Kundenkartei</h3>
+                    <p class="mt-3 text-sm text-charcoal-800/70 leading-relaxed">
+                        Hautanalysen, Allergien, Rezepturen und vorherige Behandlungen übersichtlich an einem Ort speichern. Jederzeit griffbereit.
+                    </p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="bg-white p-8 rounded-3xl border border-brand-200/70 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                    <div class="w-12 h-12 rounded-2xl bg-brand-100 text-brand-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i data-lucide="sparkle" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="mt-6 text-xl font-bold text-charcoal-900">Smarte Vorab-Hinweise</h3>
+                    <p class="mt-3 text-sm text-charcoal-800/70 leading-relaxed">
+                        Sende Kundinnen vor Behandlungen (wie Needling oder Laser) automatische Pflege- und Vorbereitungshinweise direkt auf das Handy.
+                    </p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="bg-white p-8 rounded-3xl border border-brand-200/70 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                    <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i data-lucide="star" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="mt-6 text-xl font-bold text-charcoal-900">Automatische Google-Bewertungen</h3>
+                    <p class="mt-3 text-sm text-charcoal-800/70 leading-relaxed">
+                        Nach der Behandlung fragt Abora zufrieden Kundinnen vollautomatisch nach einer 5-Sterne Google-Rezension. Für mehr Sichtbarkeit.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="ablauf" class="py-20 md:py-28 bg-white border-t border-brand-200/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4">
+                <span class="text-xs font-bold uppercase tracking-widest text-brand-600">Einfach & schnell</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-charcoal-900 tracking-tight">
+                    In 4 einfachen Schritten zu deinem automatisierten Studio
+                </h2>
+                <p class="text-charcoal-800/70 text-base">
+                    Keine komplexe Software-Installation. In unter 15 Minuten einsatzbereit.
+                </p>
+            </div>
+
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+                
+                <!-- Step 1 -->
+                <div class="flex flex-col items-start relative">
+                    <div class="w-12 h-12 rounded-2xl bg-brand-600 text-white font-bold text-lg flex items-center justify-center shadow-lg shadow-brand-600/30">
+                        1
+                    </div>
+                    <h3 class="mt-5 text-lg font-bold text-charcoal-900">Studio konfigurieren</h3>
+                    <p class="mt-2 text-xs sm:text-sm text-charcoal-800/70 leading-relaxed">
+                        Trage deine Behandlungen (z.B. Facials, Lashes), Dauer, Preise und Öffnungszeiten ein.
+                    </p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="flex flex-col items-start relative">
+                    <div class="w-12 h-12 rounded-2xl bg-brand-100 text-brand-800 font-bold text-lg flex items-center justify-center border border-brand-200">
+                        2
+                    </div>
+                    <h3 class="mt-5 text-lg font-bold text-charcoal-900">Buchungs-Link teilen</h3>
+                    <p class="mt-2 text-xs sm:text-sm text-charcoal-800/70 leading-relaxed">
+                        Binde deinen persönlichen Online-Buchungslink auf Instagram, WhatsApp & deiner Website ein.
+                    </p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="flex flex-col items-start relative">
+                    <div class="w-12 h-12 rounded-2xl bg-brand-100 text-brand-800 font-bold text-lg flex items-center justify-center border border-brand-200">
+                        3
+                    </div>
+                    <h3 class="mt-5 text-lg font-bold text-charcoal-900">Termine füllen sich</h3>
+                    <p class="mt-2 text-xs sm:text-sm text-charcoal-800/70 leading-relaxed">
+                        Kundinnen wählen selbstständig ihren Wunschtermin. Kein Hin-und-Her-Schreiben mehr.
+                    </p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="flex flex-col items-start relative">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-800 font-bold text-lg flex items-center justify-center border border-emerald-200">
+                        4
+                    </div>
+                    <h3 class="mt-5 text-lg font-bold text-charcoal-900">Abora automatisiert</h3>
+                    <p class="mt-2 text-xs sm:text-sm text-charcoal-800/70 leading-relaxed">
+                        Bestätigungen, WhatsApp-Reminderevents und Feedback-Anfragen laufen völlig von selbst.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Demo Banner CTA -->
+            <div class="mt-16 bg-gradient-to-r from-brand-900 via-charcoal-900 to-brand-900 rounded-3xl p-8 sm:p-12 text-white shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="space-y-2 text-center md:text-left">
+                    <h3 class="text-2xl font-bold">Möchtest du sehen, wie einfach das für deine Kundinnen ist?</h3>
+                    <p class="text-brand-200 text-sm">Teste jetzt das Kundenerlebnis direkt in unserer interaktiven Buchungs-Demo.</p>
+                </div>
+                <button onclick="openBookingModal()" class="shrink-0 px-8 py-4 rounded-full bg-white text-charcoal-900 font-bold hover:bg-brand-100 transition-all shadow-md">
+                    Interaktive Demo starten
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="preise" class="py-20 md:py-28 bg-brand-50/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4">
+                <span class="text-xs font-bold uppercase tracking-widest text-brand-600">Transparente B2B Tarife</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-charcoal-900 tracking-tight">
+                    Faire Preise. Ohne versteckte Kosten.
+                </h2>
+                <p class="text-charcoal-800/70 text-base">
+                    Testet Abora 14 Tage lang völlig kostenlos und unverbindlich. Monatlich kündbar.
+                </p>
+            </div>
+
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto gap-8 items-stretch">
+                
+                <!-- Starter Studio Plan -->
+                <div class="bg-white rounded-3xl p-8 border border-brand-200 shadow-sm flex flex-col justify-between hover:shadow-lg transition-all">
+                    <div>
+                        <div class="text-lg font-bold text-charcoal-900">Starter Studio</div>
+                        <p class="text-xs text-charcoal-800/60 mt-1">Ideal für Solo-Kosmetikerinnen & Neueröffnungen</p>
+                        
+                        <div class="mt-6 flex items-baseline gap-1">
+                            <span class="text-4xl font-extrabold text-charcoal-900">49 €</span>
+                            <span class="text-xs text-charcoal-800/60 font-medium">/ Monat zzgl. MwSt.</span>
+                        </div>
+
+                        <ul class="mt-8 space-y-4 text-xs sm:text-sm text-charcoal-800">
+                            <li class="flex items-center gap-3">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                                <span>Unbegrenzte Online-Buchungen</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                                <span>1 Kalender & 1 Behandlungskabine</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                                <span>Automatische E-Mail Bestätigungen</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                                <span>Digitale Kundenkartei (bis 500 Kunden)</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-charcoal-800/40">
+                                <i data-lucide="x" class="w-4 h-4 shrink-0"></i>
+                                <span>WhatsApp-Erinnerungen</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <a href="#kontakt" class="mt-8 w-full py-3.5 rounded-full border border-brand-300 font-bold text-center text-sm text-brand-800 hover:bg-brand-100/60 transition-all">
+                        Starter wählen
+                    </a>
+                </div>
+
+                <!-- Premium Studio Plan (Highlighted) -->
+                <div class="bg-white rounded-3xl p-8 border-2 border-brand-600 shadow-xl flex flex-col justify-between relative transform md:-translate-y-2">
+                    <!-- Badge -->
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-brand-600 to-roseGold-500 text-white text-xs font-bold shadow-md">
+                        Empfohlen für gewinnorientierte Studios
+                    </div>
+
+                    <div>
+                        <div class="text-lg font-bold text-charcoal-900">Premium Studio</div>
+                        <p class="text-xs text-charcoal-800/60 mt-1">Für etablierte Studios & Teams für maximale Auslastung</p>
+                        
+                        <div class="mt-6 flex items-baseline gap-1">
+                            <span class="text-4xl font-extrabold text-charcoal-900">89 €</span>
+                            <span class="text-xs text-charcoal-800/60 font-medium">/ Monat zzgl. MwSt.</span>
+                        </div>
+
+                        <ul class="mt-8 space-y-4 text-xs sm:text-sm text-charcoal-800">
+                            <li class="flex items-center gap-3 font-medium">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                                <span>Alles aus Starter enthalten</span>
+                            </li>
+                            <li class="flex items-center gap-3 font-semibold text-brand-900">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                                <span><strong>Automatische WhatsApp & SMS-Erinnerungen</strong></span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                                <span>Bis zu 5 Kalender & Mitarbeiter</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                                <span>Automatische Google 5-Sterne Bewertungen</span>
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                                <span>Priorisierter WhatsApp-Support</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <a href="#kontakt" class="mt-8 w-full py-3.5 rounded-full bg-brand-600 hover:bg-brand-700 font-bold text-center text-sm text-white shadow-lg shadow-brand-600/30 transition-all">
+                        14 Tage kostenlos testen
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section id="kontakt" class="py-20 bg-gradient-to-b from-brand-100/50 to-brand-200/40 text-center">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-charcoal-900">
+                Bereit für ein entspannteres Studio-Management?
+            </h2>
+            <p class="text-charcoal-800/80 text-base sm:text-lg max-w-2xl mx-auto">
+                Schließe dich über 250+ Kosmetikstudios an, die mit Abora Zeit sparen und ihren Umsatz steigern.
+            </p>
+            <div class="pt-4 flex flex-col sm:flex-row justify-center gap-4">
+                <button onclick="alert('Vielen Dank für dein Interesse! Die Registrierung startet in Kürze.')" class="px-8 py-4 rounded-full bg-brand-600 hover:bg-brand-700 text-white font-bold text-base shadow-xl shadow-brand-600/20 transition-all">
+                    Jetzt kostenlos starten
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-charcoal-900 text-white/70 py-12 border-t border-charcoal-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <!-- Logo -->
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white font-bold text-sm">
+                        <i data-lucide="sparkles" class="w-4 h-4"></i>
+                    </div>
+                    <span class="text-lg font-bold text-white tracking-tight">Abora Automation</span>
+                </div>
+
+                <!-- Footer Navigation -->
+                <div class="flex flex-wrap justify-center gap-6 text-xs text-white/70">
+                    <a href="#" class="hover:text-white transition-colors">Impressum</a>
+                    <a href="#" class="hover:text-white transition-colors">Datenschutz</a>
+                    <a href="#" class="hover:text-white transition-colors">AGB</a>
+                    <a href="#" class="hover:text-white transition-colors">Kontakt</a>
+                </div>
+
+                <!-- Copyright -->
+                <div class="text-xs text-white/40">
+                    &copy; 2026 Abora Automation GmbH. Alle Rechte vorbehalten.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Client Booking Preview Modal -->
+    <div id="bookingModal" class="fixed inset-0 z-50 hidden bg-charcoal-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border border-brand-200 animate-in fade-in zoom-in-95 duration-200">
+            
+            <!-- Modal Header -->
+            <div class="bg-brand-50 p-5 border-b border-brand-200 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-brand-600 text-white flex items-center justify-center font-bold text-xs">
+                        G
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-charcoal-900">Kosmetikstudio Glow & Shine</h4>
+                        <p class="text-[11px] text-charcoal-800/60">Simulierte Online-Terminbuchung für Kundinnen</p>
+                    </div>
+                </div>
+                <button onclick="closeBookingModal()" class="w-8 h-8 rounded-full bg-white text-charcoal-800 hover:bg-brand-200 flex items-center justify-center transition-colors">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content / Booking Flow Steps -->
+            <div class="p-6 space-y-6">
+                <!-- Step Indicator -->
+                <div class="flex items-center justify-between text-xs font-semibold text-brand-800 pb-2 border-b border-brand-100">
+                    <span class="flex items-center gap-1.5"><i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-600"></i> Schritt 1: Behandlung wählen</span>
+                    <span class="text-charcoal-800/40">Dauer: ~1 Min.</span>
+                </div>
+
+                <!-- Treatment Selection Options -->
+                <div id="bookingStep1" class="space-y-3">
+                    <label class="flex items-start justify-between p-4 rounded-2xl border-2 border-brand-600 bg-brand-50/50 cursor-pointer transition-all">
+                        <div class="flex gap-3">
+                            <input type="radio" name="treatment" checked class="mt-1 text-brand-600 accent-brand-600">
+                            <div>
+                                <div class="font-bold text-sm text-charcoal-900">Aquapeeling Deluxe Facial</div>
+                                <div class="text-xs text-charcoal-800/70 mt-0.5">Tiefenreinigung, Ausreinigung & Hyaluron-Glow</div>
+                                <div class="text-xs font-semibold text-brand-700 mt-2">Dauer: 60 Min.</div>
+                            </div>
+                        </div>
+                        <span class="font-bold text-sm text-charcoal-900">89 €</span>
+                    </label>
+
+                    <label class="flex items-start justify-between p-4 rounded-2xl border border-brand-200 hover:bg-slate-50 cursor-pointer transition-all opacity-70">
+                        <div class="flex gap-3">
+                            <input type="radio" name="treatment" class="mt-1 accent-brand-600">
+                            <div>
+                                <div class="font-bold text-sm text-charcoal-900">Wimpern- & Augenbrauenlifting</div>
+                                <div class="text-xs text-charcoal-800/70 mt-0.5">Inkl. Färben & Keratin-Pflege</div>
+                                <div class="text-xs font-semibold text-brand-700 mt-2">Dauer: 45 Min.</div>
+                            </div>
+                        </div>
+                        <span class="font-bold text-sm text-charcoal-900">59 €</span>
+                    </label>
+                </div>
+
+                <!-- Date/Time Preview -->
+                <div class="bg-brand-50/60 p-4 rounded-2xl border border-brand-200 space-y-2">
+                    <div class="text-xs font-bold text-charcoal-900 flex items-center gap-2">
+                        <i data-lucide="calendar" class="w-4 h-4 text-brand-600"></i> Freie Termine für morgen:
+                    </div>
+                    <div class="flex gap-2 text-xs">
+                        <button class="px-3 py-2 rounded-xl bg-white border border-brand-300 font-bold text-brand-800 shadow-xs">10:00 Uhr</button>
+                        <button class="px-3 py-2 rounded-xl bg-brand-600 text-white font-bold shadow-xs">14:30 Uhr</button>
+                        <button class="px-3 py-2 rounded-xl bg-white border border-brand-300 font-bold text-brand-800 shadow-xs">16:15 Uhr</button>
+                    </div>
+                </div>
+
+                <!-- Confirmation Box simulation -->
+                <div id="bookingSuccessMessage" class="hidden p-4 bg-emerald-50 border border-emerald-200 rounded-2xl text-xs text-emerald-800 space-y-1">
+                    <div class="font-bold flex items-center gap-1.5 text-emerald-900">
+                        <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600"></i> Termin erfolgreich gebucht!
+                    </div>
+                    <p>Die Kundin erhält sofort eine SMS/WhatsApp-Bestätigung & der Termin wird automatisch in deinen Kalender eingetragen.</p>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-5 bg-slate-50 border-t border-brand-200/60 flex items-center justify-between">
+                <span class="text-xs text-charcoal-800/60 font-medium">✨ So einfach buchen deine Kundinnen</span>
+                <button id="simulateBookingBtn" onclick="simulateBookingSuccess()" class="px-5 py-2.5 rounded-full bg-brand-600 text-white font-bold text-xs hover:bg-brand-700 transition-all shadow-md">
+                    Termin-Buchung abschließen
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Interactive Logic JavaScript -->
+    <script>
+        // Re-initialize Lucide Icons
+        document.addEventListener("DOMContentLoaded", () => {
+            lucide.createIcons();
+            initCalculator();
+        });
+
+        // Time & Revenue Savings Calculator
+        function initCalculator() {
+            const appSlider = document.getElementById('appointmentsSlider');
+            const noShowSlider = document.getElementById('noShowSlider');
+            const appVal = document.getElementById('appointmentsVal');
+            const noShowVal = document.getElementById('noShowVal');
+            const savedHoursEl = document.getElementById('savedHours');
+            const savedRevenueEl = document.getElementById('savedRevenue');
+
+            function updateCalculations() {
+                const appointmentsPerWeek = parseInt(appSlider.value);
+                const noShowPercent = parseInt(noShowSlider.value);
+
+                // Update text displays
+                appVal.textContent = appointmentsPerWeek + ' Termine';
+                noShowVal.textContent = noShowPercent + ' %';
+
+                // Calculate saved hours per month
+                // Assumes average 10 mins spent per appointment booking (calls, WhatsApps, manual calendar entry)
+                const totalAppointmentsPerMonth = appointmentsPerWeek * 4.3;
+                const hoursSavedMonth = Math.round((totalAppointmentsPerMonth * 10) / 60);
+
+                // Calculate prevented no-show loss
+                // Assumes Abora reduces no-shows by 70% and average treatment price is 60 EUR
+                const currentNoShowsMonth = totalAppointmentsPerMonth * (noShowPercent / 100);
+                const preventedNoShowsMonth = currentNoShowsMonth * 0.70;
+                const savedRevenueMonth = Math.round(preventedNoShowsMonth * 65);
+
+                // Update DOM with animated feeling
+                savedHoursEl.textContent = `~${hoursSavedMonth} Std.`;
+                savedRevenueEl.textContent = `~${savedRevenueMonth} € / Mo.`;
+            }
+
+            appSlider.addEventListener('input', updateCalculations);
+            noShowSlider.addEventListener('input', updateCalculations);
+
+            // Initial call
+            updateCalculations();
+        }
+
+        // Modal Logic
+        function openBookingModal() {
+            const modal = document.getElementById('bookingModal');
+            const successMsg = document.getElementById('bookingSuccessMessage');
+            const btn = document.getElementById('simulateBookingBtn');
+            
+            successMsg.classList.add('hidden');
+            btn.disabled = false;
+            btn.textContent = "Termin-Buchung abschließen";
+            btn.classList.remove('opacity-50');
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeBookingModal() {
+            const modal = document.getElementById('bookingModal');
+            modal.classList.add('hidden');
+        }
+
+        function simulateBookingSuccess() {
+            const successMsg = document.getElementById('bookingSuccessMessage');
+            const btn = document.getElementById('simulateBookingBtn');
+
+            successMsg.classList.remove('hidden');
+            btn.disabled = true;
+            btn.textContent = "✓ Termin gebucht";
+            btn.classList.add('opacity-50');
+        }
+    </script>
+</body>
+</html>
